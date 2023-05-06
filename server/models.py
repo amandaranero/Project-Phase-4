@@ -16,9 +16,9 @@ class Adopter(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String, nullable = False)
-    username = db.Column(db.String, nullable = False)
-    email = db.Column(db.String, nullable = False)
-    bio = db.Column(db.String(5,50), nullable = False)
+    username = db.Column(db.String, nullable = False, unique=True)
+    email = db.Column(db.String, nullable = False, unique=True)
+    bio = db.Column(db.String, nullable = False)
     created_at = db.Column(db.DateTime, server_default = db.func.now())
     updated_at = db.Column(db.DateTime, onupdate = db.func.now())
 
@@ -35,14 +35,20 @@ class Adopter(db.Model, SerializerMixin):
 
     @validates('username')
     def validates_name(self, key, value):
+        usernames = Adopter.query.filter_by(username).all()
         if not value:
             raise ValueError('Must have username')
+        if value in usernames:
+            raise ValueError('Username already exists')
         return value
 
     @validates('email')
     def validates_name(self, key, value):
+        emails = Adopter.query.filter_by(email).all()
         if not value:
             raise ValueError('Must have email')
+        if value in emails:
+            raise ValueError('Email already taken')
         return value
 
     @validates('bio')
@@ -70,9 +76,9 @@ class Agency(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String, nullable = False)
-    username = db.Column(db.String, nullable = False)
+    username = db.Column(db.String, nullable = False, unique=True)
     address = db.Column(db.String, nullable = False)
-    email = db.Column(db.String, nullable = False)
+    email = db.Column(db.String, nullable = False, unique=True)
     created_at = db.Column(db.DateTime, server_default = db.func.now())
     updated_at = db.Column(db.DateTime, onupdate = db.func.now())
 
@@ -83,20 +89,29 @@ class Agency(db.Model, SerializerMixin):
 
     @validates('name')
     def validates_name(self, key, value):
+        # agencynames = Agency.query.filter_by(name).all()
         if not value:
             raise ValueError('Must have name')
+        # if value in agencynames:
+        #     raise ValueError('Agency Name already taken')
         return value
 
     @validates('username')
     def validates_name(self, key, value):
+        usernames = Agency.query.filter_by(username).all()
         if not value:
             raise ValueError('Must have username')
+        if value in usernames:
+            raise ValueError('Username already exists')
         return value
 
     @validates('email')
     def validates_name(self, key, value):
+        emails = Agency.query.filter_by(email).all()
         if not value:
             raise ValueError('Must have email')
+        if value in emails:
+            raise ValueError('Email already taken')
         return value
 
     @validates('address')

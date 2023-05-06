@@ -7,7 +7,7 @@ import "../Signup.css";
 function SignupAdopter(){
     const navigate = useNavigate()
 
-    // const [refreshPage, setRefreshPage] = useState(false);
+    // figure out uniquness front end, yup mappeR?
     const formSchema = yup.object().shape({
         email: yup.string().required("Must enter email"),
         username: yup.string().required("Must enter username"),

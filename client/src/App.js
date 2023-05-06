@@ -5,10 +5,27 @@ import SignupAdopter from './components/SignupAdopter'
 import SignupAgency from './components/SignupAgency'
 import AdopterPage from './components/AdopterPage'
 import AgencyPage from './components/AgencyPage'
-// import Login from './components/Login'
+import AdopterLogin from './components/AdopterLogin'
+import {useEffect, useState} from 'react';
 
 
 function App() {
+  const [user, setUser] = useState(null)
+
+  useEffect(()=>{
+    fetch('/check_session_adopter')
+    .then((resp)=>{
+      if (resp.status === 200){
+        resp.json()
+        .then((user)=> setUser(user))
+      }
+    })
+  }, []);
+
+  function handleLogin(user){
+    setUser(user)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -18,7 +35,7 @@ function App() {
         <Route path = '/adopterpage' element={<AdopterPage/>}/>
         <Route path = '/newadopter' element={<SignupAdopter/>} />
         <Route path = '/newagency' element={<SignupAgency/>} />
-        {/* <Route path = '/login' element={<Login/>} /> */}
+        <Route path = '/adopterlogin' element={<AdopterLogin onLogin={handleLogin}/>} />
       </Routes>
       </header>
     </div>

@@ -37,8 +37,8 @@ function Navbar() {
                 </select>
               </li>
 
-              <li><Link to="/login">
-                  <button>Login</button>
+              <li><Link to="/adopterlogin">
+                  <button>Adopter Login</button>
               </Link></li>
 
             </ul>

@@ -1,4 +1,4 @@
-from flask import Flask, make_response, request
+from flask import Flask, make_response, request, session
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from models import db, Adopter, Agency, Dog
@@ -7,6 +7,7 @@ from models import db, Adopter, Agency, Dog
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = b'\xd3"mM\x15\xa0\xf0\xd2\xd0.0\xbb\xef\xaep\xea'
 app.json.compact = False
 
 
@@ -87,9 +88,41 @@ class Agencies(Resource):
 
 api.add_resource(Agencies, '/agencies')
 
+class LoginAdopter(Resource):
+    def post(self):
+        username = request.get_json()['username']
+        adopter = Adopter.query.filter(Adopter.username == username).first()
 
+        session['adopter_id'] = adopter.id
 
+        if not adopter:
+            return make_response({
+                'error': 'That username does not exist'
+            }, 400)
+        
+        return make_response(
+            adopter.to_dict(),
+            200
+        )
 
+api.add_resource(LoginAdopter, '/loginadopter')
+
+class CheckSessionAdopter(Resource):
+    def get(self):
+        if session.get('adopter_id'):
+
+            adopter = Adopter.query.filter(Adopter.id == session['adopter_id']).first()
+
+            return make_response(
+                adopter.to_dict(),
+                200
+            )
+
+        return make_response({
+            'error' : '401 Unauthorized'
+        }, 401)
+
+api.add_resource(CheckSessionAdopter, '/check_session_adopter')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
