@@ -3,7 +3,8 @@ import * as yup from 'yup';
 import {useNavigate } from 'react-router-dom';
 import '../Login.css';
 
-function AdopterLogin({onLogin}) {
+
+function AgencyLogin({onLogin}) {
   const navigate = useNavigate();
 
   const formSchema = yup.object().shape({
@@ -16,7 +17,7 @@ function AdopterLogin({onLogin}) {
     },
     validationSchema: formSchema,
     onSubmit: (values)=>{
-      fetch('/loginadopter',{
+      fetch('/loginagency',{
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
@@ -27,7 +28,7 @@ function AdopterLogin({onLogin}) {
         if (resp.status ===200){
           resp.json()
           .then((user)=> onLogin(user))
-          navigate('/adopterpage')
+          navigate('/agencypage')
         }
       })
     }
@@ -55,4 +56,4 @@ function AdopterLogin({onLogin}) {
   )
 }
 
-export default AdopterLogin;
+export default AgencyLogin;

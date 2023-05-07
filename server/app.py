@@ -7,7 +7,7 @@ from models import db, Adopter, Agency, Dog
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = b'\xd3"mM\x15\xa0\xf0\xd2\xd0.0\xbb\xef\xaep\xea'
+app.config['SECRET_KEY'] = b'\xd3"mM\x15\xa0\xf0\xd2\xd0.0\xbb\xef\xaep\xea'
 app.json.compact = False
 
 
@@ -91,23 +91,22 @@ api.add_resource(Agencies, '/agencies')
 class LoginAdopter(Resource):
     def post(self):
         username = request.get_json()['username']
-        adopter = Adopter.query.filter(Adopter.username == username).first()
-
-        session['adopter_id'] = adopter.id
-
-        if not adopter:
+        try:
+            adopter = Adopter.query.filter(Adopter.username == username).first()
+            session['adopter_id'] = adopter.id
+            return make_response(
+                adopter.to_dict(),
+                200
+            )
+        except:
             return make_response({
-                'error': 'That username does not exist'
-            }, 400)
-        
-        return make_response(
-            adopter.to_dict(),
-            200
-        )
+                'message': 'That username does not exist'
+                }, 401)
+  
 
 api.add_resource(LoginAdopter, '/loginadopter')
 
-class CheckSessionAdopter(Resource):
+class CheckSession(Resource):
     def get(self):
         if session.get('adopter_id'):
 
@@ -117,12 +116,56 @@ class CheckSessionAdopter(Resource):
                 adopter.to_dict(),
                 200
             )
+        elif session.get('agency_id'):
+            agency = Agency.query.filter(Agency.id == session['agency_id']).first()
+
+            return make_response(
+                agency.to_dict(),
+                200
+            )
 
         return make_response({
             'error' : '401 Unauthorized'
         }, 401)
 
-api.add_resource(CheckSessionAdopter, '/check_session_adopter')
+api.add_resource(CheckSession, '/check_session')
+
+class LoginAgency(Resource):
+    def post(self):
+        username = request.get_json()['username']
+        try:
+            agency = Agency.query.filter(Agency.username == username).first()
+
+            session['agency_id'] = agency.id
+
+            return make_response(
+                agency.to_dict(),
+                200
+            )
+        except:
+            return make_response({
+                'error': 'That username does not exist'
+                }, 400)
+
+api.add_resource(LoginAgency, '/loginagency')
+
+class Logout(Resource):
+    def delete(self):
+        if session.get('adopter_id'):
+            session['adopter_id'] = None
+
+            return make_response({
+                'message': 'No User logged in'
+                }, 204)
+
+        elif session.get('agency_id'):
+            session['agency_id'] = None
+
+            return make_response({
+                'message': 'No User logged in'
+                }, 204)
+        
+api.add_resource(Logout, '/logout')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

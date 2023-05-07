@@ -8,7 +8,17 @@ import twitter from "../twitter.png";
 import youtube from "../youtube.png";
 import {Link} from "react-router-dom"
 
-function Navbar() {
+function Navbar({onLogout}) {
+
+
+  function handleLogout(){
+    fetch('/logout',{
+      method: 'DELETE'
+    })
+    .then(()=>onLogout())
+  }
+
+
   return (
     <header>
       <div className="logo">
@@ -28,19 +38,14 @@ function Navbar() {
           <li><a href="#">Download</a></li>
           <li className="right-links">
             <ul>
-              <li>
-                <select>
-                  <option value="en">Language</option>
-                  <option value="en">English</option>
-                  <option value="es">Español</option>
-                  <option value="fr">Français</option>
-                </select>
-              </li>
 
               <li><Link to="/adopterlogin">
                   <button>Adopter Login</button>
               </Link></li>
-
+              <li><Link to="/agencylogin">
+                  <button>Agency Login</button>
+              </Link></li>
+              <li><button onClick = {handleLogout}>Logout</button></li>
             </ul>
           </li>
         </ul>
