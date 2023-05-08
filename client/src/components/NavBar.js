@@ -1,4 +1,5 @@
-import React from 'react';
+
+import SignupAdopter from './SignupAdopter'
 import logo from "../dogpaw.png";
 import "../index.css";
 import facebook from "../facebook.png";
@@ -14,10 +15,15 @@ function Navbar() {
         <img src={logo} alt="Tinder for Dogs" />
         <h1 className="title">Doggy</h1>
       </div>
+
+      <div>
+      <SignupAdopter/>
+      </div>
+
       <nav>
         <ul>
-          <li><a href="#">Learn</a></li>
-          <li><a href="#">Product</a></li>
+          <li><a href="#">Products</a></li>
+          <li><a href="#">Learn</a></li>   
           <li><a href="#">Safety</a></li>
           <li><a href="#">Support</a></li>
           <li><a href="#">Download</a></li>
@@ -38,7 +44,7 @@ function Navbar() {
       </nav>
       <div className="center">
         <h2>Swipe Right</h2>
-        <button>Create Account</button>
+        <button>Create Adopter</button>
       </div>
       <div id="legal-careers">
         <div className="legal">

@@ -56,7 +56,7 @@ class Agency(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate = db.func.now())
 
     dogs = db.relationship('Dog', backref = 'agency', cascade = 'all, delete, delete-orphan')
-    adpopters = association_proxy('dogs', 'adopter')
+    adopters = association_proxy('dogs', 'adopter')
 
 
 
