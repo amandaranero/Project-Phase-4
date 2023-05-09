@@ -36,7 +36,11 @@ function Navbar() {
                   <option value="fr">Français</option>
                 </select>
               </li>
-              <li><button>Login</button></li>
+
+              <li><Link to="/login">
+                  <button>Login</button>
+              </Link></li>
+
             </ul>
           </li>
         </ul>

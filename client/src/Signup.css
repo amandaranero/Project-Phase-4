@@ -1,0 +1,84 @@
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    padding: 20px;
+    border-radius: 50px;
+    background-color: rgba(0, 0, 0, 0.685);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  form:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.603);
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  
+  label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  input {
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  button[type="submit"] {
+    background-color: #ff6c6c;
+    border: none;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  button[type="submit"]:hover { /* SignUp button */
+    background-color: #181515;
+    color: #ff6c6c;
+  }
+  form label { /*Labels colors Like Emails Adress UserName */
+    color: rgb(255, 0, 0);
+  }
+  
+  form input[type="text"],
+  form input[type="email"] {
+    color: rgb(255, 245, 245);
+    background-color: rgba(123, 50, 50, 0.084);
+    border: 2px solid #ccc;
+    border-radius: 50px;
+    padding: 5px;
+    margin: 5px 0;
+  }
+  
+  form input[type="text"]:focus,
+  form input[type="email"]:focus {
+    outline: none;
+    border: 2px solid #ff6c6c;
+  }
+  
+  

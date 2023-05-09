@@ -5,6 +5,7 @@ import SignupAdopter from './components/SignupAdopter'
 import SignupAgency from './components/SignupAgency'
 import AdopterPage from './components/AdopterPage'
 import AgencyPage from './components/AgencyPage'
+// import Login from './components/Login'
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path = '/adopterpage' element={<AdopterPage/>}/>
         <Route path = '/newadopter' element={<SignupAdopter/>} />
         <Route path = '/newagency' element={<SignupAgency/>} />
+        {/* <Route path = '/login' element={<Login/>} /> */}
       </Routes>
       </header>
     </div>
