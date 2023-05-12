@@ -6,8 +6,8 @@ import boto3
 import botocore
 import os
 import uuid
-from dotenv import load_dotenv
-load_dotenv()
+
+
 
 
 app = Flask(
@@ -295,4 +295,4 @@ api.add_resource(NewDog, '/newdog')
 
 
 if __name__ == '__main__':
-    app.run(port=8000, debug=True)
+    app.run(port=5555, debug=True)
