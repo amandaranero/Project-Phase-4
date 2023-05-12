@@ -13,6 +13,8 @@ sqlalchemy-serializer = "*"
 flask-restful = "*"
 boto3 = "*"
 awscli = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
