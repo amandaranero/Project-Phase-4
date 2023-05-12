@@ -6,6 +6,8 @@ import boto3
 import botocore
 import os
 import uuid
+from dotenv import load_dotenv
+load_dotenv()
 
 
 app = Flask(__name__)
