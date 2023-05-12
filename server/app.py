@@ -74,34 +74,6 @@ def upload_file_to_s3(file):
     return {"url": f"{S3_LOCATION}{file.filename}"}
 
 
-# class UploadDogImage(Resource):
-#     def post(self):
-#         data= request.files['image']
-#         data.filename = get_unique_filename(data.filename)
-#         image = upload_file_to_s3(data)
-#         print(image)
-#         # if 'url' not in image:
-#         #     return image, 400
-#         # return {'url': image['url']}
-#         try:
-#             photo = DogImage(
-#                 url = image['url'],
-#                 dog_id = session['newdog_id']
-#             )
-
-#             db.session.add(photo)
-#             db.session.commit()
-
-#             return make_response(
-#                 photo.to_dict(),
-#                 200
-#             )
-#         except:
-#             return make_response({
-#                 'error': 'nope'
-#             }, 400)
-
-# api.add_resource(UploadDogImage, '/uploadimage')
 
 class Adopters(Resource):
     def get(self):
@@ -294,6 +266,15 @@ class NewDog(Resource):
             return make_response({'errors': [ex.__str__()]}, 401)
 
 api.add_resource(NewDog, '/newdog')
+
+class Dogs(Resource):
+    dogs = [dogs.to_dict() for dogs in Dog.query.all()]
+
+    return make_response(
+        dogs,200
+    )
+
+api.add_resource(Dogs,'/dogs')
 
 
 if __name__ == '__main__':
