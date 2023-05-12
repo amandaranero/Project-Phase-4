@@ -15,6 +15,7 @@ boto3 = "*"
 awscli = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
+load-dotenv = "*"
 
 [dev-packages]
 
