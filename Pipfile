@@ -15,9 +15,8 @@ boto3 = "*"
 awscli = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
-load-dotenv = "*"
 python-dotenv = "*"
-
+importlib-metadata = "*"
 
 [dev-packages]
 
