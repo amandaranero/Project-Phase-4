@@ -9,6 +9,7 @@ from sqlalchemy import create_engine
 fake = Faker()
 
 
+
 def make_adopter():
 
     Adopter.query.delete()
@@ -56,6 +57,7 @@ def make_dog():
 
     dogs = []
 
+
     for _ in range(10):
         dog = Dog(
             name = fake.name(),
@@ -63,13 +65,14 @@ def make_dog():
             age = randint(0, 15),
             temperment = fake.name(),
             adopter_id = rc(adopters)[0],
-            agency_id = rc(agencies)[0]
+            agency_id = rc(agencies)[0],
         )
 
         dogs.append(dog)
 
     db.session.add_all(dogs)
     db.session.commit()
+
 
 if __name__ == '__main__':
     with app.app_context():

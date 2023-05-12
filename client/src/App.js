@@ -37,7 +37,7 @@ function App() {
     <div className="App">
       <header className="App-header">
       <Routes>
-        <Route index element={<NavBar onLogout = {handleLogout}/>}/>
+        <Route index element={<NavBar onLogout = {handleLogout} user={user}/>}/>
         <Route path = '/agencypage' element={<AgencyPage/>} />
         <Route path = '/adopterpage' element={<AdopterPage/>}/>
         <Route path = '/newadopter' element={<SignupAdopter/>} />

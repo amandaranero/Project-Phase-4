@@ -1,7 +1,11 @@
 from flask import Flask, make_response, request, session
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
-from models import db, Adopter, Agency, Dog
+from models import db, Adopter, Agency, Dog, DogImage
+import boto3
+import botocore
+import os
+import uuid
 
 
 app = Flask(__name__)
@@ -15,6 +19,70 @@ migrate = Migrate(app, db)
 db.init_app(app)
 api = Api(app)
 
+
+BUCKET_NAME = os.environ.get('AWS_BUCKET_NAME')
+S3_LOCATION = os.environ.get('AWS_DOMAIN')
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+s3 = boto3.client('s3',
+                    aws_access_key_id=os.environ.get('AWS_ACCESS_KEY'),
+                    aws_secret_access_key= os.environ.get('AWS_SECRET_ACCESS_KEY')
+                     )
+def allowed_file(filename):
+    return "." in filename and \
+           filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def get_unique_filename(filename):
+    ext = filename.rsplit(".", 1)[1].lower()
+    unique_filename = uuid.uuid4().hex
+    return f"{unique_filename}.{ext}"
+
+
+def upload_file_to_s3(file):
+    try:
+        s3.upload_fileobj(
+            file,
+            BUCKET_NAME,
+            file.filename,
+            ExtraArgs={
+                "ContentType": file.content_type
+            }
+        )
+    except Exception as e:
+        # in case the our s3 upload fails
+        return {"errors": str(e)}
+
+    return {"url": f"{S3_LOCATION}{file.filename}"}
+
+
+# class UploadDogImage(Resource):
+#     def post(self):
+#         data= request.files['image']
+#         data.filename = get_unique_filename(data.filename)
+#         image = upload_file_to_s3(data)
+#         print(image)
+#         # if 'url' not in image:
+#         #     return image, 400
+#         # return {'url': image['url']}
+#         try:
+#             photo = DogImage(
+#                 url = image['url'],
+#                 dog_id = session['newdog_id']
+#             )
+
+#             db.session.add(photo)
+#             db.session.commit()
+
+#             return make_response(
+#                 photo.to_dict(),
+#                 200
+#             )
+#         except:
+#             return make_response({
+#                 'error': 'nope'
+#             }, 400)
+
+# api.add_resource(UploadDogImage, '/uploadimage')
 
 class Adopters(Resource):
     def get(self):
@@ -30,7 +98,8 @@ class Adopters(Resource):
                 name = data['name'],
                 username = data['username'],
                 email = data['email'],
-                bio = data['bio']
+                bio = data['bio'],
+                adopter = True
             )
             db.session.add(new_adopter)
             db.session.commit()
@@ -166,6 +235,47 @@ class Logout(Resource):
                 }, 204)
         
 api.add_resource(Logout, '/logout')
+
+class NewDog(Resource):
+    def post(self):
+        data = request.form
+        imagedata= request.files['image']
+
+        try:
+            new_dog = Dog(
+                name=data['name'],
+                age=data['age'],
+                breed=data['breed'],
+                temperment=data['temperment'],
+                agency_id = session['agency_id']
+            )
+            db.session.add(new_dog)
+            db.session.commit()
+
+            imagedata.filename = get_unique_filename(imagedata.filename)
+            image = upload_file_to_s3(imagedata)
+
+            photo = DogImage(
+                url = image['url'],
+                dog_id = new_dog.id
+            )
+
+            db.session.add(photo)
+            db.session.commit()
+
+            print(photo.url)
+
+            return make_response(
+                new_dog.to_dict(),
+                200)
+
+            
+        except Exception as ex:
+            print([ex.__str__()])
+            return make_response({'errors': [ex.__str__()]}, 401)
+
+api.add_resource(NewDog, '/newdog')
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

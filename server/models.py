@@ -21,6 +21,7 @@ class Adopter(db.Model, SerializerMixin):
     bio = db.Column(db.String, nullable = False)
     created_at = db.Column(db.DateTime, server_default = db.func.now())
     updated_at = db.Column(db.DateTime, onupdate = db.func.now())
+    adopter = db.Column(db.Boolean, default = True)
 
     dogs = db.relationship('Dog', backref = 'adopter', cascade = 'all, delete, delete-orphan')
     agencies = association_proxy('dogs', 'agency')
@@ -71,6 +72,9 @@ class Dog(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default = db.func.now())
     updated_at = db.Column(db.DateTime, onupdate = db.func.now())
 
+    dogimages = db.relationship('DogImage', backref='dog', cascade = 'all, delete, delete-orphan')
+    serialize_rules = ('-created_at','-updated_at', '-dogimages.dog' )
+
 class Agency(db.Model, SerializerMixin):
     __tablename__ = "agencies"
 
@@ -119,6 +123,19 @@ class Agency(db.Model, SerializerMixin):
         if not value:
             raise ValueError('Must have address')
         return value
+
+class DogImage(db.Model, SerializerMixin):
+    __tablename__ = "dogimages"
+
+    id = db.Column(db.Integer, primary_key= True)
+    url = db.Column(db.String, nullable = False)
+    dog_id = db.Column(db.Integer, db.ForeignKey('dogs.id'))
+    created_at = db.Column(db.DateTime, server_default = db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate = db.func.now())
+
+    serialize_rules = ('-created_at','-updated_at' )
+
+
 
 
 
