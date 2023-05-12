@@ -3,8 +3,6 @@ import * as yup from 'yup';
 import {useState} from 'react'
     
 function DogForm() {
-    const [newdog, setNewDog] = useState(null)
-    const [imageUrl, setImageUrl] = useState(null);
     const [loading, setLoading] = useState(false)
 
     // const handleSubmit = async (e) => {
@@ -58,7 +56,6 @@ function DogForm() {
             if (response.ok){
               const data = await response.json()
                 setLoading(false)
-                setNewDog(data)
                 console.log('form submission successful', data)
             } else{
                 setLoading(false)
@@ -137,6 +134,7 @@ function DogForm() {
             formik.setFieldValue('image', e.currentTarget.files[0])
           } />
             </div>
+            {loading ? <p>It's loading</p>: null}
             <button type="submit">Submit</button>
           </form>
 
