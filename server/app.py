@@ -3,8 +3,8 @@ from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from models import db, Adopter, Agency, Dog, DogImage
 import uuid
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 import boto3
 import botocore
 import os
