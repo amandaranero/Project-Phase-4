@@ -10,7 +10,22 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+        static_url_path='',
+    static_folder='../client/build',
+    template_folder='../client/build'
+)
+
+...
+
+@app.route('/')
+@app.route('/<int:id>')
+def index(id=0):
+    return render_template("index.html")
+
+
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = b'\xd3"mM\x15\xa0\xf0\xd2\xd0.0\xbb\xef\xaep\xea'
