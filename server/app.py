@@ -12,7 +12,7 @@ import uuid
 
 app = Flask(
     __name__,
-        static_url_path='',
+    static_url_path='',
     static_folder='../client/build',
     template_folder='../client/build'
 )
