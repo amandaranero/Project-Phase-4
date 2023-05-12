@@ -16,6 +16,7 @@ awscli = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
 load-dotenv = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
