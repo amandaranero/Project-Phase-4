@@ -61,12 +61,7 @@ function Navbar({onLogout, user}) {
 
             <nav>
               <ul>
-                <li><a href="#">Products</a></li>
-                <li><a href="#">Learn</a></li>   
-                <li><a href="#">Safety</a></li>
-                <li><a href="#">Support</a></li>
-                <li><a href="#">Download</a></li>
-                <li className="right-links">
+                
                   <ul>
 
                     {/* <li><Link to="/adopterlogin">
@@ -76,7 +71,6 @@ function Navbar({onLogout, user}) {
                         <button>Agency Login</button>
                     </Link></li> */}
                   </ul>
-                </li>
               </ul>
             </nav>
       =
@@ -96,15 +90,9 @@ function Navbar({onLogout, user}) {
             <div id="legal-careers">
               <div className="legal">
                 <h2>Legal</h2>
-                <a href="#">Privacy</a>
-                <a href="#">Terms</a>
-                <a href="#">Cookie Policy</a>
-                <a href="#">Intellectual Property</a>
               </div>
               <div className="careers">
                 <h2>Careers</h2>
-                <a href="#">Careers Portal</a>
-                <a href="#">Tech Blog</a>
               </div>
               <div className="social">
               <h2>Social</h2>
@@ -118,10 +106,6 @@ function Navbar({onLogout, user}) {
             </div>
               <div className="faq">
                 <h2>FAQ</h2>
-                <a href="#">Destinations</a>
-                <a href="#">Press Room</a>
-                <a href="#">Contact</a>
-                <a href="#">Promo Code</a>
               </div>
             </div>
           </header>
