@@ -59,20 +59,6 @@ function Navbar({onLogout, user}) {
             <div>
             </div>
 
-            <nav>
-              <ul>
-                
-                  <ul>
-
-                    {/* <li><Link to="/adopterlogin">
-                        <button>Adopter Login</button>
-                    </Link></li>
-                    <li><Link to="/agencylogin">
-                        <button>Agency Login</button>
-                    </Link></li> */}
-                  </ul>
-              </ul>
-            </nav>
       =
             <div className="center">
               {/* <h2>Swipe Right</h2>

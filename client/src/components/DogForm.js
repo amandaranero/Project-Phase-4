@@ -1,6 +1,5 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import DogImageUpload from './DogImageUpload'
 import {useState} from 'react'
     
 function DogForm() {
