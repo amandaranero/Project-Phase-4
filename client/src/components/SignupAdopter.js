@@ -1,6 +1,7 @@
 import {useFormik} from 'formik';
 import * as yup from 'yup';
 import {useNavigate} from "react-router-dom"
+import NavBar from './NavBar';
 import "../Signup.css";
 
 
