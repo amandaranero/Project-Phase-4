@@ -268,11 +268,12 @@ class NewDog(Resource):
 api.add_resource(NewDog, '/newdog')
 
 class Dogs(Resource):
-    dogs = [dogs.to_dict() for dogs in Dog.query.all()]
+    def get(self):
+        dogs = [dogs.to_dict() for dogs in Dog.query.all()]
 
-    return make_response(
-        dogs,200
-    )
+        return make_response(
+            dogs,200
+        )
 
 api.add_resource(Dogs,'/dogs')
 
