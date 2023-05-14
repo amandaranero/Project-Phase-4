@@ -1,6 +1,6 @@
 from faker import Faker
 from app import app
-from models import db, Adopter, Dog, Agency
+from models import db, Adopter, Dog, Agency,DogImage
 from random import choice as rc, randint
 from app import app
 from sqlalchemy.orm import sessionmaker
@@ -49,11 +49,26 @@ def make_dog():
         dogs.append(dog)
     db.session.add_all(dogs)
     db.session.commit()
+
+def make_dog_images():
+    DogImage.query.delete()
+    dogs = db.session.query(Dog.id).all()
+    images = []
+    for _ in range(10):
+        image = DogImage(
+            url = fake.url(),
+            dog_id = rc(dogs)[0]
+        )
+        images.append(image)
+        db.session.add_all(images)
+        db.session.commit()
+
 if __name__ == '__main__':
     with app.app_context():
         make_adopter()
         make_agency()
         make_dog()
+        make_dog_images()
 
 
 

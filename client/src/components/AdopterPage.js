@@ -1,17 +1,32 @@
+import DogContainer from "./DogContainer"
+import NavBar from "./NavBar"
+import {useState} from 'react'
+import {Link} from "react-router-dom"
 
 
-import DogContainer from './DogContainer'
-import NavBar from './NavBar';
 function AdopterPage({ dogs, user, onLogout }) {
+    const [showAgencies, setShowAgencies] = useState(false);
+  
+    const handleShowAgencies = () => {
+      setShowAgencies(!showAgencies);
+    };
+  
     return (
-      <div>
+      <div className="page-container">
         <NavBar isLoggedIn={user !== null} onLogout={onLogout} user={user} />
-        <DogContainer dogs={dogs} />
+        <div>
+          <header>
+            <Link to="/allagencies">
+              <button onClick={handleShowAgencies}>See All Adoption Agencies</button>
+            </Link>
+          </header>
+        </div>
+        <div className="page-content">
+          <DogContainer dogs={dogs} />
+        </div>
       </div>
     );
   }
-
-export default AdopterPage
-
-
-// Try to Push
+  
+  export default AdopterPage;
+  
