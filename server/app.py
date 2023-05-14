@@ -277,6 +277,22 @@ class Dogs(Resource):
 
 api.add_resource(Dogs,'/dogs')
 
+class AgencyDog(Resource):
+    def get(self, id):
+        # id = session['agency_id']
+        dogs =[dogs.to_dict() for dogs in Dog.query.filter_by(id=id)]
+
+        if dogs:
+            return make_response(
+                dogs, 200
+            )
+
+        return make_response(
+            {'error': 'you have no dogs'},
+            400
+        )
+    
+api.add_resource(AgencyDog, '/agencydog/<int:id>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

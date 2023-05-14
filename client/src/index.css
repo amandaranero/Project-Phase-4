@@ -149,28 +149,9 @@ nav select {
 a {
   text-decoration: none;
 }
-/* Styles for the social section */
-.social-icons { /* title */
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 10px;
+
+
+.dog-collection{
+  margin: 2rem
 }
-.social-icons img { /* icons */
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
-}
-/* Styles for FAQ section */
-.faq ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.faq li {
-  margin: 10px;
-  font-size: 14px;
-}
+

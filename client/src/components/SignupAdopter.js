@@ -2,6 +2,7 @@ import {useFormik} from 'formik';
 import * as yup from 'yup';
 import {useNavigate} from "react-router-dom"
 import "../Signup.css";
+import NavBar from './NavBar';
 
 
 function SignupAdopter(){
@@ -37,6 +38,8 @@ function SignupAdopter(){
         }
     })
     return (
+        <div>
+        <NavBar />
         <form onSubmit= {formik.handleSubmit}>
             <label htmlFor="email">Email Address</label>
             <input
@@ -76,6 +79,7 @@ function SignupAdopter(){
                 <div>{formik.errors.bio} </div>) : null}
             <button type = "submit"> SignUp </button>
         </form>
+        </div>
     )
 }
 export default SignupAdopter

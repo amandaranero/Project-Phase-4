@@ -5,27 +5,6 @@ import {useState} from 'react'
 function DogForm() {
     const [loading, setLoading] = useState(false)
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault()
-    //     console.log('dog')
-    //     const imageData = new FormData()
-    //     imageData.append('image', imageUrl)
-    //     setLoading(true)
-    //     const response = await fetch('/uploadimage', {
-    //       method: 'POST',
-    //       body: imageData
-    //     })
-        // if (response.ok){
-        //   setLoading(false)
-        //   const data = await response.json()
-        //   console.log(data)
-        // } else{
-        //   setLoading(false)
-        //   console.log('failed')
-        // }
-    //     }
-
-
       const formSchema = yup.object().shape({
         name: yup.string().required('Name is required'),
         age: yup.number().required('Age is required'),

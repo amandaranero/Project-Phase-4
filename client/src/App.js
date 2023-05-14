@@ -8,11 +8,31 @@ import AgencyPage from './components/AgencyPage'
 import AdopterLogin from './components/AdopterLogin'
 import {useEffect, useState} from 'react';
 import AgencyLogin from './components/AgencyLogin';
+import AllAgencies from './components/AllAgencies'
 
 
 function App() {
   const [user, setUser] = useState(null)
+  const [dogs, setDogs] = useState([])
+  // const [agencyDogs, setAgencyDogs] = useState([])
+  const [agencies, setAgencies] = useState([])
+  const [agentDog, setAgentDog] = useState([])
 
+//fetch agenices    
+  useEffect(()=>{
+      fetch('/agencies')
+      .then((resp)=>{
+      if (resp.status ===200){
+          resp.json()
+          .then((agency)=>{
+          setAgencies(agency)
+          })
+      }
+      })
+  }, [])
+
+
+//check session
   useEffect(()=>{
     fetch('/check_session')
     .then((resp)=>{
@@ -23,13 +43,26 @@ function App() {
     })
   }, []);
 
+  //fetch dogs
+  useEffect(()=>{
+    fetch('/dogs')
+    .then((resp)=>{
+      if (resp.status === 200){
+        resp.json()
+        .then((dog)=> {
+          setDogs(dog)
+        })
+      }
+    })
+  }, []);
+
 
 
   function handleLogin(user){
     setUser(user)
   }
 
-  function handleLogout(user){
+  function handleLogout(){
     setUser(null)
   }
 
@@ -38,12 +71,13 @@ function App() {
       <header className="App-header">
       <Routes>
         <Route index element={<NavBar onLogout = {handleLogout} user={user}/>}/>
-        <Route path = '/agencypage' element={<AgencyPage/>} />
-        <Route path = '/adopterpage' element={<AdopterPage/>}/>
+        <Route path = '/agencypage' element={<AgencyPage user={user} />} />
+        <Route path = '/adopterpage' element={<AdopterPage dogs={dogs}agencies={agencies} user={user}/>}/>
         <Route path = '/newadopter' element={<SignupAdopter/>} />
         <Route path = '/newagency' element={<SignupAgency/>} />
         <Route path = '/adopterlogin' element={<AdopterLogin onLogin={handleLogin}/>} />
         <Route path = '/agencylogin' element={<AgencyLogin onLogin={handleLogin}/>} />
+        <Route path = '/allagencies' element={<AllAgencies agencies={agencies} />}/>
       </Routes>
       </header>
     </div>

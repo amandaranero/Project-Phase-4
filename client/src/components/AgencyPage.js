@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import DogForm from './DogForm';
 
-function AgencyPage() {
+function AgencyPage(){
+
 
   const [showForm, setShowForm] = useState(false);
 
@@ -17,7 +18,6 @@ function AgencyPage() {
   return (
     <div>
       <h1>Agency</h1>
-      <button onClick={handleForm}>Show Form</button>
       {showForm && <DogForm onSubmit={handleDogFormSubmit} />}
     </div>
   );
