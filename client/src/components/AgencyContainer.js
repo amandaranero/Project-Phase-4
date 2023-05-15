@@ -6,10 +6,10 @@ function AgencyContainer({agencies}){
     })
 
     return (
-    <div >
-        {agencyCards}
-    </div>
-    )
+        <div className="agency-container">
+            {agencyCards}
+        </div>
+        )
 }
 
 export default AgencyContainer

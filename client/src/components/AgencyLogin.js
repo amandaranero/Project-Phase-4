@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import {useNavigate } from 'react-router-dom';
+import {useNavigate, Link } from 'react-router-dom';
 import '../Login.css';
 
 
@@ -37,21 +37,31 @@ function AgencyLogin({onLogin}) {
 
  
   return (
-  
-    <form onSubmit={formik.handleSubmit}>
-      <label htmlFor="username">Username</label>
-      <input
-        id="username"
-        name="username"
-        type="text"
-        value = {formik.values.username}
-        onChange ={formik.handleChange}
-        onBlur = {formik.handleBlur}
-        />
-        {formik.touched.username && formik.errors.username ?(
-          <div>{formik.errors.username} </div>) : null}
-      <button type="submit">Log In</button>
-    </form>
+    <div>
+      <div>
+      <header>
+          <nav>
+              <Link to = {'/'}>
+                  <button>Back</button>
+              </Link>
+          </nav>
+      </header>
+      </div>
+      <form onSubmit={formik.handleSubmit}>
+        <label htmlFor="username">Username</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          value = {formik.values.username}
+          onChange ={formik.handleChange}
+          onBlur = {formik.handleBlur}
+          />
+          {formik.touched.username && formik.errors.username ?(
+            <div>{formik.errors.username} </div>) : null}
+        <button type="submit">Log In</button>
+      </form>
+    </div>
   
   )
 }

@@ -1,29 +1,10 @@
-
 import logo from "../dogpaw.png";
 import "../index.css";
-import {Link, useNavigate} from "react-router-dom"
+import {Link} from "react-router-dom"
 
-function NavBar({onLogout, user}) {
+function NavBar({ user, onLogout}) {
 
-//if there is no user logged in... have login button and create user button
-//if a user is in agency then you have to home button and see all dogs/etc
-//if a user is an adopter then you home button/logout 
 
-  const navigate = useNavigate()
-
-  function handleLogout(){
-    fetch('/logout',{
-      method: 'DELETE'
-    })
-    .then(()=>onLogout())
-    .then(()=>{
-      navigate('/')
-    })
-  }
-  
-
-    
-  
   if (!user){
       return (
         <header>
@@ -58,24 +39,23 @@ function NavBar({onLogout, user}) {
             </div>
         </header>
     )} else {
-        return(
-          <header>
-            <div className="logo">
-              <img src={logo} alt="Tinder for Dogs" />
-              <h1 className="title">Doggy</h1>
-            </div>
-
-            <div>
-            </div>
-            <div className="center">
-              <div>
-                <li><button onClick = {handleLogout}>Logout</button></li>
-            </div>
+      return (
+        <header>
+          <div className="logo">
+            <img src={logo} alt="Tinder for Dogs" />
+            <h1 className="title">Doggy</h1>
           </div>
-              
-          </header>
-      );
-}
-} 
+          <nav>
+            <ul>
+              <li>
+                <button onClick={onLogout}>Logout</button>
+              </li>
+            </ul>
+          </nav>
 
-export default NavBar
+        </header>
+      );
+    }
+}
+export default NavBar;
+//Trying to Push

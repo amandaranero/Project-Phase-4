@@ -21,7 +21,7 @@ function DogForm() {
           image: ''
         },
         validationSchema: formSchema,
-        onSubmit: async (values) => {
+        onSubmit: async (values, helpers) => {
         const formData = new FormData()
         for (let value in values) {
           formData.append(value, values[value]);
@@ -36,6 +36,7 @@ function DogForm() {
               const data = await response.json()
                 setLoading(false)
                 console.log('form submission successful', data)
+                helpers.resetForm()
             } else{
                 setLoading(false)
                 console.log('failed')

@@ -79,9 +79,12 @@ def make_dog_images():
 
     images = []
 
+    url = ["https://images.dog.ceo/breeds/deerhound-scottish/n02092002_6915.jpg",
+    'https://cdn.akc.org/content/hero/puppy_pictures_header.jpg', "https://images.dog.ceo/breeds/setter-irish/n02100877_2142.jpg","https://images.dog.ceo/breeds/hound-basset/n02088238_13683.jpg", "https://images.dog.ceo/breeds/corgi-cardigan/n02113186_1447.jpg",  "https://images.dog.ceo/breeds/airedale/n02096051_183.jpg"]
+
     for _ in range(10):
         image = DogImage(
-            url = fake.url(),
+            url = rc[url],
             dog_id = rc(dogs)[0]
         )
 

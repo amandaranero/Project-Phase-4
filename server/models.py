@@ -73,7 +73,7 @@ class Dog(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate = db.func.now())
 
     dogimages = db.relationship('DogImage', backref='dog', cascade = 'all, delete, delete-orphan')
-    serialize_rules = ('-created_at','-updated_at', '-dogimages.dog' )
+    serialize_rules = ('-created_at','-updated_at', '-dogimages.dog', '-agency', '-adopter' )
 
 class Agency(db.Model, SerializerMixin):
     __tablename__ = "agencies"
@@ -134,6 +134,12 @@ class DogImage(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate = db.func.now())
 
     serialize_rules = ('-created_at','-updated_at' )
+
+    @validates('url')
+    def validates_url(key,value,self):
+        if not value:
+            raise ValueError("must have pic")
+        return value
 
 
 

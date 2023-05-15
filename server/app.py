@@ -279,8 +279,9 @@ api.add_resource(Dogs,'/dogs')
 
 class AgencyDog(Resource):
     def get(self, id):
-        # id = session['agency_id']
-        dogs =[dogs.to_dict() for dogs in Dog.query.filter_by(id=id)]
+        print(session['agency_id'])
+        id = session['agency_id']
+        dogs =[dogs.to_dict() for dogs in Dog.query.filter_by(agency_id=id)]
 
         if dogs:
             return make_response(
@@ -289,7 +290,7 @@ class AgencyDog(Resource):
 
         return make_response(
             {'error': 'you have no dogs'},
-            400
+            401
         )
     
 api.add_resource(AgencyDog, '/agencydog/<int:id>')

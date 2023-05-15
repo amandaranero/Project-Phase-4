@@ -1,0 +1,16 @@
+.page-container {
+    height: 100vh; /* Set the height of the container to viewport height */
+    overflow: auto; /* Add scrollable behavior */
+  }
+  
+  .agency-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Create 4 equal-width columns */
+    grid-gap: 10px; /* Add some gap between the cards */
+  }
+  
+  .agency-card {
+    /* Add any additional styling for the card */
+    width: 100px !important; /* Adjust the width as desired */
+    height: 200px !important; /* Adjust the height as desired */
+  }
