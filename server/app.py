@@ -254,8 +254,6 @@ class NewDog(Resource):
             db.session.add(photo)
             db.session.commit()
 
-            print(photo.url)
-
             return make_response(
                 new_dog.to_dict(),
                 200)

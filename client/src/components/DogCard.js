@@ -1,24 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import AdopterPage from './AdopterPage'
 
 import '../DogCard.css';
-function DogCard({ dog, isVisible }) {
+function DogCard({ dog, isVisible}) {
   const { name, breed, age, dogimages} = dog;
-  // const images = dogimages.map((image)=>{
-  //   const {url, dog_id} = image
-  //   return <img src = {url} />
-  // })
+  const [dogPics, setDogPics] = useState([])
 
-  
+  useEffect(()=>{
+    const images = dogimages.map((image)=>{
+      return image
+    })
+    setDogPics(images)
+  }, [])
 
-  
+
+
+
 
   return isVisible ? (
 
     <div className='card'>
-      {dogimages.map((image)=>{
-    const {url, dog_id} = image
-    return <img className='img' src={url} alt={`${name}’s photo`} /> /*We dont have picts yet but trying something*/
-                  })}
+    <img className='img' src={dogPics[0] ? dogPics[0].url : null} alt={`${name}’s photo`} /> /*We dont have picts yet but trying something*/
       <div className='content'>
         <div className='title'>
           {name}

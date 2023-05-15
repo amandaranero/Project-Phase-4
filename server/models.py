@@ -135,11 +135,11 @@ class DogImage(db.Model, SerializerMixin):
 
     serialize_rules = ('-created_at','-updated_at' )
 
-    @validates('url')
-    def validates_url(key,value,self):
-        if not value:
-            raise ValueError("must have pic")
-        return value
+    # @validates('url')
+    # def validates_url(key,value,self):
+    #     if not value:
+    #         raise ValueError("must have pic")
+    #     return value
 
 
 

@@ -79,12 +79,12 @@ def make_dog_images():
 
     images = []
 
-    url = ["https://images.dog.ceo/breeds/deerhound-scottish/n02092002_6915.jpg",
-    'https://cdn.akc.org/content/hero/puppy_pictures_header.jpg', "https://images.dog.ceo/breeds/setter-irish/n02100877_2142.jpg","https://images.dog.ceo/breeds/hound-basset/n02088238_13683.jpg", "https://images.dog.ceo/breeds/corgi-cardigan/n02113186_1447.jpg",  "https://images.dog.ceo/breeds/airedale/n02096051_183.jpg"]
+    pic = ["https://images.dog.ceo/breeds/deerhound-scottish/n02092002_6915.jpg",
+    'https://cdn.akc.org/content/hero/puppy_pictures_header.jpg', "https://images.dog.ceo/breeds/setter-irish/n02100877_2142.jpg","https://images.dog.ceo/breeds/hound-basset/n02088238_13683.jpg", "https://images.dog.ceo/breeds/corgi-cardigan/n02113186_1447.jpg",  "https://images.dog.ceo/breeds/airedale/n02096051_183.jpg", "https://images.dog.ceo/breeds/poodle-toy/n02113624_7964.jpg", "https://images.dog.ceo/breeds/terrier-silky/n02097658_6351.jpg", "https://images.dog.ceo/breeds/greyhound-italian/n02091032_4653.jpg"]
 
     for _ in range(10):
         image = DogImage(
-            url = rc[url],
+            url = rc(pic),
             dog_id = rc(dogs)[0]
         )
 

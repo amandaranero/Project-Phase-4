@@ -4,8 +4,10 @@ import DogCard from './DogCard'
 function DogContainer({dogs}){
     const [visibleCardIndex, setVisibleCardIndex] = useState(0);
     const dogCards = dogs.map((dog, index)=>(
-      <DogCard key={dog.id} dog={dog} isVisible={index === visibleCardIndex} />
+      <DogCard key={dog.id} dog={dog}  
+        isVisible={index === visibleCardIndex}/>
     ))
+    
     
     
 function handleSwipe(){
