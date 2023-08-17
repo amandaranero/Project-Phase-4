@@ -31,10 +31,6 @@ class Adopters(Resource):
                 new_adopter.to_dict(),
                 201
             )
-        except Exception as ex:
-            return make_response({
-                'errors': [ex.__str__()]
-            }, 400)
 api.add_resource(Adopters, '/adopters')
 class AdopterById(Resource):
     def get(self, id):
